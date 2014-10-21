@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 {% load staticfiles %}
 <html>
 <head>
@@ -7,11 +9,11 @@
 <body>
   {% if latest_tweets %}
     {% for tweet in latest_tweets %}
-      <div id="tweet">
-        <div id="profile_pic">
+      <div class="tweet" id={{ tweet.created|date:"U" }}>
+        <div class="profile_pic">
           <img src="{{ tweet.profile_image_url }}">
         </div>
-        <div id="tweet_contents">
+        <div class="tweet_contents">
           {{ tweet }} {{ tweet.created }}
         </div>
       </div>
