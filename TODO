@@ -1,0 +1,7 @@
+tweets are stored in database
+basic view has been written to show profile image/tweets/date
+
+create database of tags including all words
+	if word is in db already, increase count
+	link keyword to search
+front end design

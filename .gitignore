@@ -1,0 +1,3 @@
+devgoogle/*.sqlite3
+*.pyc
+devgoogle/devgoogle/settings.py

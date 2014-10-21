@@ -1,0 +1,21 @@
+{% load staticfiles %}
+<html>
+<head>
+<meta http-equiv="refresh" content="10" >
+<link rel="stylesheet" type="text/css" href="{% static "tweetstream/index.css" %}">
+</head>
+<body>
+  {% if latest_tweets %}
+    {% for tweet in latest_tweets %}
+      <div id="tweet">
+        <div id="profile_pic">
+          <img src="{{ tweet.profile_image_url }}">
+        </div>
+        <div id="tweet_contents">
+          {{ tweet }} {{ tweet.created }}
+        </div>
+      </div>
+    {% endfor %}
+  {% endif %}
+</body>
+</html>
