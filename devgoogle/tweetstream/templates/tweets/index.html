@@ -4,20 +4,45 @@
 <html>
 <head>
 <meta http-equiv="refresh" content="10" >
+<meta charset="UTF-8">
+<title>#devgoogle Tweets</title>
+<meta name="description" content="A Twitter stream of the #devgoogle hashtag for developers.">
+<meta name="author" content="Barry Wainstock">
+<!-- <meta name="viewport" content="width=devide-width, minimum-scale=1.0"> -->
+
+<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="{% static "tweetstream/index.css" %}">
 </head>
+
 <body>
-  {% if latest_tweets %}
-    {% for tweet in latest_tweets %}
-      <div class="tweet" id={{ tweet.created|date:"U" }}>
-        <div class="profile_pic">
-          <img src="{{ tweet.profile_image_url }}">
-        </div>
-        <div class="tweet_contents">
-          {{ tweet }} {{ tweet.created }}
-        </div>
+
+  <div class="top-nav">
+    <header>
+      <div class="wrapper">
+        <h1>#devgoogle</h1>
+        <p><small>Everyone looks things up, but nobody talks about it. Let’s talk about it.</small></p>
       </div>
-    {% endfor %}
-  {% endif %}
-</body>
-</html>
+    </header>
+  </div>
+  <main>
+  
+    <article>
+      <div class="wrapper" id="content">
+        {% if latest_tweets %}
+          {% for tweet in latest_tweets %}
+            <div class="tweet" id={{ tweet.created|date:"U" }}>
+              <div class="profile_pic">
+                <img src="{{ tweet.profile_image_url }}" style="width: 48px; height: 48px;">
+              </div>
+              <div class="tweet_contents">
+                <a href="http://www.google.com/#q={{ tweet.google_string }}" target="_blank">{{ tweet }}</a> {{ tweet.created }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </article>
+  
+  </main>
+  </body>
+  </html>
