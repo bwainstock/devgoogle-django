@@ -1,4 +1,5 @@
-# import os
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "devgoogle.settings")
 #import time
 import django
 from django.conf import settings
@@ -7,8 +8,8 @@ from tweetstream.models import Tweets, Tags
 
 from twython import TwythonStreamer
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "devgoogle.settings")
 django.setup()
+#settings.configure(devgoogle_defaults, DEBUG=True)
 
 class Streamer(TwythonStreamer):
     def on_success(self, data):
