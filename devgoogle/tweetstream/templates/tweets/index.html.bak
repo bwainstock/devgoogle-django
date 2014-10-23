@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+<html>
+<head>
+<!-- <meta http-equiv="refresh" content="10" > -->
+<link rel="stylesheet" type="text/css" href="{% static "tweetstream/index.css" %}">
+</head>
+<body>
+  <header>HEADER</header>
+  <div class="tweets-content">
+    <div class="span6" id="content">
+      {% if latest_tweets %}
+        {% for tweet in latest_tweets %}
+          <div class="tweet" id={{ tweet.created|date:"U" }}>
+            <div class="profile_pic">
+              <img src="{{ tweet.profile_image_url }}">
+            </div>
+            <div class="tweet_contents">
+              {{ tweet }} {{ tweet.created }}
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="{% static "tweetstream/js/jquery.visible.min.js" %}"></script>
+  <script type="text/javascript">
+  setInterval("location.reload(true);",10000);
+  // {% if latest_tweets %}
+  // window.latestTweet = {{ latest_tweets.0.created|date:"U" }};
+  // {% else %}
+  // window.latestTweet = 0;
+  // {% endif %}
+
+  // var refreshTrigged = false;
+
+  // function refreshTweets() {
+  //   var visible = $("header").visible();
+  //   if (visible) {
+  //     console.log('refreshTweets') ;
+  //     // $('#latest-tweet').hide();
+  //     $.getJSON('/tweets/latest', {since: window.latestTweet, nt:(new Date()).getTime()},
+  //       function(data) {
+  //         $('#content').prepend(data[0]); 
+  //         $('.latest').slideDown('slow', function() { $(this).removeClass('latest');});
+  //         $('#content div:gt(50)').remove(); 
+  //         setTimeout(refreshTweets, 2000);
+  //       }
+  //     );
+  //   } else {
+  //     refreshTrigged = false;
+  //   }
+  // };
+
+  // $(document).ready(function() {
+  //   $("#latest-tweet-btn").on('click', function() {
+  //     $('html, body').animate({
+  //          scrollTop: $("#header").offset().top
+  //     }, 400);
+  //   });
+
+
+  //   $(window).on('scroll', function() {
+  //       var visible = $("#header").visible();
+  //       //console.log(visible);
+  //       if (visible) {
+  //           $('#latest-tweet').hide();
+  //           if (!refreshTrigged) {
+  //               refreshTrigged = true;
+  //               setTimeout(refreshTweets, 2000);
+  //           }
+  //       } else {
+  //           $('#latest-tweet').show();
+  //       }
+  //  });
+   // refreshTweets();
+  // });
+  </script>
+</body>
+</html>

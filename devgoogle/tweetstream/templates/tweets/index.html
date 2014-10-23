@@ -1,48 +1,57 @@
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="10" >
+    <title>#devgoogle</title>
 
-{% load staticfiles %}
-<html>
-<head>
-<meta http-equiv="refresh" content="10" >
-<meta charset="UTF-8">
-<title>#devgoogle Tweets</title>
-<meta name="description" content="A Twitter stream of the #devgoogle hashtag for developers.">
-<meta name="author" content="Barry Wainstock">
-<!-- <meta name="viewport" content="width=devide-width, minimum-scale=1.0"> -->
+    <!-- Bootstrap CSS -->
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 
-<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="{% static "tweetstream/index.css" %}">
-</head>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-<body>
+  <body>
+    <h1 class="text-center bg-primary" style="border-bottom: 3px solid #030303; line-height:150px; height:150px; margin-top:0">#devgoogle</h1>
 
-  <div class="top-nav">
-    <header>
-      <div class="wrapper">
-        <h1>#devgoogle</h1>
-        <p><small>Everyone looks things up, but nobody talks about it. Let’s talk about it.</small></p>
-      </div>
-    </header>
-  </div>
-  <main>
-  
-    <article>
-      <div class="wrapper" id="content">
+    <div class="container">
         {% if latest_tweets %}
           {% for tweet in latest_tweets %}
-            <div class="tweet" id={{ tweet.created|date:"U" }}>
-              <div class="profile_pic">
-                <img src="{{ tweet.profile_image_url }}" style="width: 48px; height: 48px;">
-              </div>
-              <div class="tweet_contents">
-                <a href="http://www.google.com/#q={{ tweet.google_string }}" target="_blank">{{ tweet }}</a> {{ tweet.created }}
-              </div>
-            </div>
+
+      <div class="row" style="padding-top:10px">
+        <div class="col-lg-12" style="background: white; border: 2px solid; border-radius: 10px">
+          <div class="row">
+            <div class="col-lg-2 col-md-2"> <!-- PROFILE PICTURE -->
+              <img src="{{ tweet.profile_image_url }}" class="center-block img-responsive" style="border-radius:10px; padding:5px; height=100px; width:100px;">
+            </div> <!-- PROFILE PICTURE -->
+            <div class="col-lg-8 col-md-8"> <!-- TWEET TEXT -->
+              <h2 class="text-center" id={{ tweet.created|date:"U" }}>{{ tweet }}</h2><br />
+              <h3 class="text-center" style="margin:0"><small>{{ tweet.created }}</small></h3>
+            </div> <!-- TWEET TEXT -->
+          </div>
+
+          <!-- Tags as buttons on their own row -->
+          <div class="row">
+            <div class="col-lg-12 col-md-12 text-center" style="padding:5px"> <!-- TAGS -->
+              {% for tag in tweet.get_tags %}
+                <button type="button" class="btn btn-sm btn-danger" style="">{{tag}}</button>
+              {% endfor %}
+            </div> <!-- TAGS -->
+          </div>
+
+        </div>
+      </div>
+
           {% endfor %}
         {% endif %}
-      </div>
-    </article>
-  
-  </main>
+    </div>
+
   </body>
-  </html>
+</html>

@@ -7,8 +7,8 @@ from tweetstream.models import Tweets, Tags
 
 from twython import TwythonStreamer
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "devgoogle.settings")
 django.setup()
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "devgoogle.settings")
 
 class Streamer(TwythonStreamer):
     def on_success(self, data):
@@ -17,8 +17,8 @@ class Streamer(TwythonStreamer):
 			user = data['user']['screen_name'].encode('utf-8')
 			date = data['created_at'].encode('utf-8')
 			real_name = data['user']['name'].encode('utf-8')
-			profile_image_url = data['user']['profile_image_url'].encode('utf-8')
-#			created = time.strftime('%Y-%m-%d %H:%M:%S', time.strptime(date,'%a %b %d %H:%M:%S +0000 %Y'))
+			small_picture = data['user']['profile_image_url'].encode('utf-8')
+			profile_image_url = small_picture.replace("normal", "400x400")
 			created = timezone.now()
             
 			t = Tweets(tweet_text=tweet_text, user=user, created=created,

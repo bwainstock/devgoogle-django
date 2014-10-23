@@ -1,0 +1,19 @@
+{% if latest %}
+<div class='latest' style='display:none;'>
+{% for tweet in latest %}
+<div class="post row-fluid">
+    <div class="post-image span2">
+        <img src="{{ tweet.profile_image_url }}"/>
+    </div>
+    <div class="post-text span10">
+        <p><a href="http://twitter.com/{{ tweet.user }}/status/" class="tweet">{{ tweet.tweet_text }}</a></p>
+        <p><a href="http://twitter.com/{{ tweet.user }}" class="title">{{ tweet.user }}</a></p>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    window.latestTweet = {{ latest.0.created|date:"U" }};
+</script>
+</div>
+{% endif %}
