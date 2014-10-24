@@ -1,10 +1,12 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="refresh" content="10" >
+    <!-- <meta http-equiv="refresh" content="10" > -->
     <title>#devgoogle</title>
 
     <!-- Bootstrap CSS -->
@@ -19,21 +21,31 @@
   </head>
 
   <body>
-    <h1 class="text-center bg-primary" style="border-bottom: 3px solid #030303; line-height:150px; height:150px; margin-top:0">#devgoogle</h1>
+
+    <div class="page-header" style="background:#4183D7;border-bottom: 3px solid #030303;margin:0">
+        <div class="container">
+            <div class="row-fluid text-center">
+              <h1>#devgoogle</h1>
+            </div>
+            <div class="row-fluid text-center">
+              <h5>Even the best developers have to search for answers sometimes.</h5>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         {% if latest_tweets %}
           {% for tweet in latest_tweets %}
 
-      <div class="row" style="padding-top:10px">
-        <div class="col-lg-12" style="background: white; border: 2px solid; border-radius: 10px">
+      <div class="row" style="padding-top:5px;padding-bottom:5px">
+        <div class="col-lg-10 col-lg-offset-1" style="background: white; border: 2px solid; border-radius: 10px">
           <div class="row">
             <div class="col-lg-2 col-md-2"> <!-- PROFILE PICTURE -->
               <img src="{{ tweet.profile_image_url }}" class="center-block img-responsive" style="border-radius:10px; padding:5px; height=100px; width:100px;">
             </div> <!-- PROFILE PICTURE -->
             <div class="col-lg-8 col-md-8"> <!-- TWEET TEXT -->
-              <h2 class="text-center" id={{ tweet.created|date:"U" }}>{{ tweet }}</h2><br />
-              <h3 class="text-center" style="margin:0"><small>{{ tweet.created }}</small></h3>
+              <h3 class="text-center" id={{ tweet.created|date:"U" }}>{{ tweet }}</h3><br />
+              <h4 class="text-center" style="margin:0"><small>{{ tweet.created }}</small></h4>
             </div> <!-- TWEET TEXT -->
           </div>
 
@@ -41,7 +53,7 @@
           <div class="row">
             <div class="col-lg-12 col-md-12 text-center" style="padding:5px"> <!-- TAGS -->
               {% for tag in tweet.get_tags %}
-                <button type="button" class="btn btn-sm btn-danger" style="">{{tag}}</button>
+                <a class="btn btn-sm btn-info" href="/tweets/{{tag}}">{{tag}}</a>
               {% endfor %}
             </div> <!-- TAGS -->
           </div>
@@ -51,6 +63,12 @@
 
           {% endfor %}
         {% endif %}
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p class="text-muted text-center"><a href="https://github.com/bwainstock/devgoogle-django" target="_blank"><img src="{% static "tweetstream/img/github-32px.png" %}"></p>
+      </div>
     </div>
 
   </body>
